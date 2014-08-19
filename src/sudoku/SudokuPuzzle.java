@@ -21,10 +21,10 @@ public class SudokuPuzzle {
 		this.boxHeight = puzzle.boxHeight;
 		this.validValues = puzzle.validValues;
 	}
-	public int getRows(){
+	public int getNumRows(){
 		return rows;
 	}
-	public int getColumns(){
+	public int getNumColumns(){
 		return columns;
 	}
 	public int getBoxHeight(){
