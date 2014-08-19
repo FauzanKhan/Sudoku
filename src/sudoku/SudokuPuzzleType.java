@@ -12,7 +12,7 @@ public enum SudokuPuzzleType {
 	private String[] validValues;
 	private String puzzleType;
 	
-	public void SudokuPuzzleType(int rows, int columns, int boxWidth, int boxHeight, String[] validValues, String puzzleType){
+	private SudokuPuzzleType(int rows, int columns, int boxWidth, int boxHeight, String[] validValues, String puzzleType){
 		this.rows = rows;
 		this.columns = columns;
 		this.boxWidth = boxWidth;
