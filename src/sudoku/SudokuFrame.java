@@ -2,6 +2,7 @@ package sudoku;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -22,11 +23,11 @@ public class SudokuFrame extends JFrame {
 		JMenu file = new JMenu("Game");
 		JMenu game = new JMenu("New Game");
 		JMenuItem sixBySixGame = new JMenuItem("6 x 6 Game");
-		sixBySixGame.addActionListener(NewGameListener(SudokuPuzzleType.sixBySix, 30));
+		sixBySixGame.addActionListener(new NewGameListener(SudokuPuzzleType.SIXBYSIX, 30));
 		JMenuItem nineByNineGame = new JMenuItem("9 x 9 Game");
-		nineByNineGame.addActionListener(NewGameListener(SudokuPuzzleType.nineByNine, 26));
+		nineByNineGame.addActionListener(new NewGameListener(SudokuPuzzleType.NINEBYNINE, 26));
 		JMenuItem twelveByTwelveGame = new JMenuItem("12 x 12 Game");
-		nineByNineGame.addActionListener(NewGameListener(SudokuPuzzleType.twelveByTwelve, 20));
+		nineByNineGame.addActionListener(new NewGameListener(SudokuPuzzleType.TWELVEBYTWELVE, 20));
 		game.add(sixBySixGame);
 		game.add(nineByNineGame);
 		game.add(twelveByTwelveGame);
@@ -41,12 +42,12 @@ public class SudokuFrame extends JFrame {
 		buttonsPanel.setPreferredSize(new Dimension(100, 500));
 		windowPanel.add(sudokuPanel);
 		windowPanel.add(buttonsPanel);
-		rebuildInterface(SudokuPuzzleType.nineByNine, 26);
+		rebuildInterface(SudokuPuzzleType.NINEBYNINE, 26);
 	}
-	public void rebuldInterface(SudokuPuzzleType puzzleType, int fontSize){
+	public void rebuildInterface(SudokuPuzzleType puzzleType, int fontSize){
 		SudokuPuzzle generatedPuzzle = new SudokuGenerator().generateRandomSudoku(puzzleType);
 		sudokuPanel.newSudokuPuzzle(generatedPuzzle);
-		sudokuPanel.setFontSize(fontSize);
+		sudokuPanel.setFont(sudokuPanel.getFont().deriveFont(fontSize));
 		buttonsPanel.removeAll();
 		for(String value : generatedPuzzle.getValidValues()) {
 			JButton b = new JButton(value);
@@ -55,10 +56,10 @@ public class SudokuFrame extends JFrame {
 			buttonsPanel.add(b);
 		}
 		sudokuPanel.repaint();
-		buttonSelectionPanel.revalidate();
-		buttonSelectionPanel.repaint();
+		buttonsPanel.revalidate();
+		buttonsPanel.repaint();
 	}
-	public class NewGameListener implements ActionListener{
+	private class NewGameListener implements ActionListener{
 		private int fontSize;
 		private SudokuPuzzleType puzzleType;
 		public NewGameListener(SudokuPuzzleType puzzleType, int fontSize){
@@ -66,7 +67,7 @@ public class SudokuFrame extends JFrame {
 			this.fontSize = fontSize;
 		}
 		public void actionPerformed(ActionEvent e){
-			rebuildInterface(puzzleType, fontsize);
+			rebuildInterface(puzzleType, fontSize);
 		}
 	} 
 	public static void main(String[] args){
